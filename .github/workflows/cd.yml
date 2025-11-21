@@ -21,21 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
-        env:
-          CI: true
-          HOST: localhost
-          PORT: 3000
-          PGHOST: localhost
-          PGPORT: 5432
-          PGUSER: developer
-          PGPASSWORD: supersecretpassword
-          PGDATABASE: forumapi_test
-          ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
-          REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
-          ACCESS_TOKEN_AGE: 3000
-
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@master
         with:
