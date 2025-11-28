@@ -3,6 +3,7 @@ const UsersTableTestHelper = require("../../../../tests/UsersTableTestHelper");
 const AuthenticationsTableTestHelper = require("../../../../tests/AuthenticationsTableTestHelper");
 const ThreadsTableTestHelper = require("../../../../tests/ThreadsTableTestHelper");
 const CommentsTableTestHelper = require("../../../../tests/CommentsTableTestHelper");
+const CommentLikesTableTestHelper = require("../../../../tests/CommentLikesTableTestHelper");
 const container = require("../../container");
 const createServer = require("../createServer");
 
@@ -12,6 +13,7 @@ describe("/threads endpoint", () => {
   });
 
   afterEach(async () => {
+    await CommentLikesTableTestHelper.cleanTable();
     await CommentsTableTestHelper.cleanTable();
     await ThreadsTableTestHelper.cleanTable();
     await UsersTableTestHelper.cleanTable();
@@ -28,7 +30,6 @@ describe("/threads endpoint", () => {
 
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -39,7 +40,6 @@ describe("/threads endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -79,7 +79,6 @@ describe("/threads endpoint", () => {
 
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -90,7 +89,6 @@ describe("/threads endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -145,7 +143,6 @@ describe("/threads endpoint", () => {
       // Arrange
       const server = await createServer(container);
 
-      // add user
       const userPayload = {
         username: "dicoding",
         password: "secret",
@@ -157,7 +154,6 @@ describe("/threads endpoint", () => {
         payload: userPayload,
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -169,7 +165,6 @@ describe("/threads endpoint", () => {
 
       const { data: loginData } = JSON.parse(loginResponse.payload);
 
-      // add thread
       const threadPayload = {
         title: "Thread Title",
         body: "Thread body content",
