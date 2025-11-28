@@ -27,7 +27,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -38,7 +37,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -50,7 +48,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const { data: loginData } = JSON.parse(loginResponse.payload);
 
-      // add thread
       const addThreadResponse = await server.inject({
         method: "POST",
         url: "/threads",
@@ -95,7 +92,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -106,7 +102,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -118,7 +113,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const { data: loginData } = JSON.parse(loginResponse.payload);
 
-      // add thread
       const addThreadResponse = await server.inject({
         method: "POST",
         url: "/threads",
@@ -179,7 +173,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -190,7 +183,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -225,7 +217,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
       // Arrange
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -236,7 +227,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -248,7 +238,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const { data: loginData } = JSON.parse(loginResponse.payload);
 
-      // add thread
       const addThreadResponse = await server.inject({
         method: "POST",
         url: "/threads",
@@ -265,7 +254,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         data: { addedThread },
       } = JSON.parse(addThreadResponse.payload);
 
-      // add comment
       const addCommentResponse = await server.inject({
         method: "POST",
         url: `/threads/${addedThread.id}/comments`,
@@ -412,7 +400,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
       // Arrange
       const server = await createServer(container);
 
-      // add user
       await server.inject({
         method: "POST",
         url: "/users",
@@ -423,7 +410,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
         },
       });
 
-      // login user
       const loginResponse = await server.inject({
         method: "POST",
         url: "/authentications",
@@ -435,7 +421,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 
       const { data: loginData } = JSON.parse(loginResponse.payload);
 
-      // add thread
       const addThreadResponse = await server.inject({
         method: "POST",
         url: "/threads",

@@ -2,10 +2,16 @@ const ThreadDetail = require("../../Domains/threads/entities/ThreadDetail");
 const CommentDetail = require("../../Domains/comments/entities/CommentDetail");
 
 class GetThreadDetailUseCase {
-  constructor({ threadRepository, commentRepository, replyRepository }) {
+  constructor({
+    threadRepository,
+    commentRepository,
+    replyRepository,
+    commentLikeRepository,
+  }) {
     this._threadRepository = threadRepository;
     this._commentRepository = commentRepository;
     this._replyRepository = replyRepository;
+    this._commentLikeRepository = commentLikeRepository;
   }
 
   async execute(useCasePayload) {
@@ -13,6 +19,11 @@ class GetThreadDetailUseCase {
 
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getCommentsByThreadId(
+      threadId
+    );
+
+    // Get like counts for all comments in this thread
+    const likeCounts = await this._commentLikeRepository.getLikeCountsByThreadId(
       threadId
     );
 
@@ -31,12 +42,16 @@ class GetThreadDetailUseCase {
           username: reply.username,
         }));
 
+        // Get like count for this comment
+        const likeCount = likeCounts[comment.id] || 0;
+
         return new CommentDetail({
           id: comment.id,
           username: comment.username,
           date: comment.date,
           content: comment.content,
           isDeleted: comment.is_deleted,
+          likeCount,
           replies: mappedReplies,
         });
       })
